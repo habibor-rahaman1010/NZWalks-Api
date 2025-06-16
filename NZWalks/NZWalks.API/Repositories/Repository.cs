@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NZWalks.API.DomainEntities;
 using NZWalks.API.RepositoriesInterface;
+using System.Linq.Expressions;
 
 namespace NZWalks.API.Repositories
 {
@@ -70,6 +71,22 @@ namespace NZWalks.API.Repositories
                 return item;
             }
             return item;
+        }
+
+        public async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null)
+        {
+            IQueryable<TEntity> query = _dbSet.AsQueryable<TEntity>();
+            int count;
+
+            if (filter != null)
+            {
+                count = await query.CountAsync(filter);
+            }
+            else
+            {
+                count = await query.CountAsync();
+            }
+            return count;
         }
 
         public virtual async Task UpdateAsync(TKey id, CancellationToken cancellationToken)

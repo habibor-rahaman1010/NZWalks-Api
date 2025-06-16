@@ -1,4 +1,5 @@
 ﻿using NZWalks.API.DomainEntities;
+using System.Linq.Expressions;
 
 namespace NZWalks.API.RepositoriesInterface
 {
@@ -13,5 +14,6 @@ namespace NZWalks.API.RepositoriesInterface
         public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
         public Task DeleteAsync(TKey id, CancellationToken cancellationToken = default);
         public Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
+        Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
     }
 }

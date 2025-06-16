@@ -7,6 +7,8 @@
         public string Description { get; set; }
         public double LengthInKm { get; set; }
         public string? WalkImageUrl { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
         public Guid DifficulyId { get; set; }
         public Guid RegionId { get; set; }
 

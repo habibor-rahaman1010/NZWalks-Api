@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NZWalks.API.UnitOfWorkInterface;
 
-namespace NZWalks.API.UnitOfWork
+namespace NZWalks.API.UnitOfWorks
 {
     public class UnitOfWork : IUnitOfWork
     {

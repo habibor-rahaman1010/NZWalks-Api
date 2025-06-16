@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using NZWalks.API.Data;
+using NZWalks.API.ExtensionMethods;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
@@ -17,8 +18,8 @@ namespace NZWalks.API
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var connection = configuration.GetConnectionString("DefaultConnection");
-            var migrationAssembly = Assembly.GetExecutingAssembly().FullName;
+            var connection = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found."); ;
+            var migrationAssembly = Assembly.GetExecutingAssembly() ?? throw new InvalidOperationException("Migration Assembly not found.");
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug().WriteTo.MSSqlServer(
@@ -48,11 +49,9 @@ namespace NZWalks.API
                 });
                 #endregion  
 
-                //Dbcontext registerd here...
-                builder.Services.AddDbContext<NZWalksDbContext>(options => 
-                    options.UseSqlServer(connection, (m) => m.MigrationsAssembly(migrationAssembly)));
-
                 // Add services to the container.
+                builder.Services.RegisterServices(connection, migrationAssembly);
+
                 builder.Services.AddControllers();
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen();
