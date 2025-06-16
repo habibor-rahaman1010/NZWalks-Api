@@ -52,6 +52,9 @@ namespace NZWalks.API
                 // Add services to the container.
                 builder.Services.RegisterServices(connection, migrationAssembly);
 
+                //This service for automapper
+                builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
                 builder.Services.AddControllers();
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen();
