@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using NZWalks.API.Domain;
+using NZWalks.API.DomainEntities;
 
 namespace NZWalks.API.Data
 {
