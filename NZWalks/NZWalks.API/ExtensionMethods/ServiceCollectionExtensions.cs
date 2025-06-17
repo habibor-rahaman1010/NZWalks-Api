@@ -25,5 +25,16 @@ namespace NZWalks.API.ExtensionMethods
             
             return services;
         }
+
+        public static IApplicationBuilder UseDatabaseSeeder(this IApplicationBuilder app)
+        {
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<NZWalksDbContext>();
+                DbInitializer.SeedData(dbContext);
+            }
+
+            return app;
+        }
     }
 }

@@ -70,10 +70,11 @@ namespace NZWalks.API
                     app.UseSwaggerUI();
                 }
 
+                app.UseDatabaseSeeder();
+
                 app.UseHttpsRedirection();
 
                 app.UseAuthorization();
-
 
                 app.MapControllers();
 
