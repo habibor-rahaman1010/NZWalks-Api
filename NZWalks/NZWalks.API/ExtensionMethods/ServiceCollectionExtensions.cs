@@ -7,6 +7,7 @@ using NZWalks.API.ServicesInterface;
 using NZWalks.API.UnitOfWorks;
 using NZWalks.API.UnitOfWorkInterface;
 using System.Reflection;
+using NZWalks.API.Utilities;
 
 namespace NZWalks.API.ExtensionMethods
 {
@@ -20,10 +21,8 @@ namespace NZWalks.API.ExtensionMethods
             services.AddScoped<INZWalksUnitOfWork, NZWalksUnitOfWork>();
             services.AddScoped<IRegionRepository, RegionRepository>();
             services.AddScoped<IRegionManagementService, RegionManagementService>();
+            services.AddScoped<IApplicationTime, ApplicationTime>();
             
-            
-            //services.AddScoped<IApplicationTime, ApplicationTime>();
-
             return services;
         }
     }

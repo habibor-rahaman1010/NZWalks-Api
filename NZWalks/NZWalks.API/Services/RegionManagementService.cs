@@ -12,10 +12,31 @@ namespace NZWalks.API.Services
         {
             _nZWalksUnitOfWork = nZWalksUnitOfWork;
         }
+        public async Task<(IList<Region> Items, int CurrentPage, int TotalPages, int TotalItems)> GetRegionsAsync(int pageIndex, int pageSize)
+        {
+            return await _nZWalksUnitOfWork.RegionRepository.GetAllAsync(pageIndex, pageSize);
+        }
 
         public async Task AddRegionAsync(Region region)
         {
             await _nZWalksUnitOfWork.RegionRepository.AddAsync(region);
+            await _nZWalksUnitOfWork.SaveAsync();
+        }
+
+        public async Task<Region> GetByIdRegion(Guid id)
+        {
+            return await _nZWalksUnitOfWork.RegionRepository.GetByIdAsync(id);
+        }
+
+        public async Task UpdateRegionAsync(Region region)
+        {
+            await _nZWalksUnitOfWork.RegionRepository.UpdateAsync(region);
+            await _nZWalksUnitOfWork.SaveAsync();
+        }
+
+        public async Task DeleteRegionAsync(Region region)
+        {
+            await _nZWalksUnitOfWork.RegionRepository.DeleteAsync(region);
             await _nZWalksUnitOfWork.SaveAsync();
         }
     }
