@@ -91,15 +91,16 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpDelete, Route("{id:Guid}")]
-        public async Task<IActionResult> RegionDelete([FromRoute] Guid id)
+        public async Task<ActionResult<RegionDto>> RegionDelete([FromRoute] Guid id)
         {
             var region = await _regionManagementService.GetByIdRegion(id);
             if(region == null)
             {
                 return NotFound();
             }
+            var result = _mapper.Map<RegionDto>(region);
             await _regionManagementService.DeleteRegionAsync(region);
-            return Ok(new { Message = "Region has succesfully deleted!" });
+            return Ok(new { Message = "Region has succesfully deleted!", Result = result});
         }
     }
 }
