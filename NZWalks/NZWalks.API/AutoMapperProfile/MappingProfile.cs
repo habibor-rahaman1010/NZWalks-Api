@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using NZWalks.API.DomainEntities;
+using NZWalks.API.Dtos.DifficultyDto;
 using NZWalks.API.Dtos.RegionDto;
 
 namespace NZWalks.API.AutoMapperProfile
@@ -21,6 +22,20 @@ namespace NZWalks.API.AutoMapperProfile
                                 : "Not Modified")).ReverseMap();
 
             CreateMap<RegionUpdateRequestDto, Region>().ReverseMap();
+
+            CreateMap<DiffcultyAddRequestDto, Difficulty>().ReverseMap();
+
+            CreateMap<Difficulty, DifficultyDto>()
+                .ForMember(des => des.CreatedDate,
+                            opt => opt.MapFrom(src => src.CreatedDate.ToString("dd MMM yyyy hh:mm:ss tt")))
+
+                .ForMember(des => des.ModifiedDate,
+                            opt => opt.MapFrom(src => src.ModifiedDate.HasValue
+                                ? src.ModifiedDate.Value.ToString("dd MMM yyyy hh:mm:ss tt")
+                                : "Not Modified")).ReverseMap();
+
+            CreateMap<DifficultyUpdateRequestDto, Difficulty>().ReverseMap();
+
         }
     }
 }

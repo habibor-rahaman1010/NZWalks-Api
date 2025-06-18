@@ -21,6 +21,8 @@ namespace NZWalks.API.ExtensionMethods
             services.AddScoped<INZWalksUnitOfWork, NZWalksUnitOfWork>();
             services.AddScoped<IRegionRepository, RegionRepository>();
             services.AddScoped<IRegionManagementService, RegionManagementService>();
+            services.AddScoped<IDifficultyRepository, DifficultyRepository>();
+            services.AddScoped<IDifficultyManagementService, DifficultyManagementService>();
             services.AddScoped<IApplicationTime, ApplicationTime>();
             
             return services;

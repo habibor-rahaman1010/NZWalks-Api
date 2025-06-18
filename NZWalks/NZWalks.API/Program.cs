@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using NZWalks.API.Data;
 using NZWalks.API.ExtensionMethods;
 using Serilog;
 using Serilog.Events;
@@ -55,10 +54,15 @@ namespace NZWalks.API
                 //This service for automapper
                 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-                builder.Services.AddControllers();
+                builder.Services.AddControllers(options =>
+                {
+                    options.SuppressAsyncSuffixInActionNames = false;
+                });
+
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen();
                 builder.Services.AddOpenApi();
+
 
                 var app = builder.Build();
 
