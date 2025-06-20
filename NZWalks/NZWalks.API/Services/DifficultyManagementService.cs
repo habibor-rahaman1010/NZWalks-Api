@@ -1,6 +1,8 @@
-﻿using NZWalks.API.DomainEntities;
+﻿using Microsoft.EntityFrameworkCore.Query;
+using NZWalks.API.DomainEntities;
 using NZWalks.API.ServicesInterface;
 using NZWalks.API.UnitOfWorkInterface;
+using System.Linq.Expressions;
 
 namespace NZWalks.API.Services
 {
@@ -13,7 +15,11 @@ namespace NZWalks.API.Services
             _nZWalksUnitOfWork = nZWalksUnitOfWork;
         }
 
-        public Task<(IList<Difficulty> Items, int CurrentPage, int TotalPages, int TotalItems)> GetDifficultiesAsync(int pageIndex, int pageSize)
+        public Task<(IList<Difficulty> Items, int CurrentPage, int TotalPages, int TotalItems)> GetDifficultiesAsync(
+            int pageIndex, int pageSize,
+            Expression<Func<Difficulty, bool>>? filter = null,
+            Func<IQueryable<Difficulty>, IIncludableQueryable<Difficulty, object>>? include = null,
+            CancellationToken cancellationToken = default)
         {
              return _nZWalksUnitOfWork.DifficultyRepository.GetAllAsync(pageIndex, pageSize);
         }

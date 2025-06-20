@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using NZWalks.API.DomainEntities;
 using NZWalks.API.RepositoriesInterface;
 using System.Linq.Expressions;
@@ -46,13 +47,26 @@ namespace NZWalks.API.Repositories
             }, cancellationToken);
         }
 
-        public virtual async Task<(IList<TEntity> Items, int CurrentPage, int TotalPages, int TotalItems)> GetAllAsync(int pageIndex, int pageSize, CancellationToken cancellationToken)
+        public virtual async Task<(IList<TEntity> Items, int CurrentPage, int TotalPages, int TotalItems)> 
+            GetAllAsync(int pageIndex, int pageSize,
+            Expression<Func<TEntity, bool>>? filter = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, 
+            CancellationToken cancellationToken = default)
         {
             IQueryable<TEntity> query = _dbSet.AsQueryable<TEntity>();
 
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if(include != null)
+            {
+                query = include(query);
+            }
+
             var totalItems = await query.CountAsync(cancellationToken);
             var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
-
             var items = await query
                 .OrderBy(x => x.Id)
                 .Skip((pageIndex - 1) * pageSize)

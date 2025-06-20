@@ -1,6 +1,8 @@
-﻿using NZWalks.API.DomainEntities;
+﻿using Microsoft.EntityFrameworkCore.Query;
+using NZWalks.API.DomainEntities;
 using NZWalks.API.ServicesInterface;
 using NZWalks.API.UnitOfWorkInterface;
+using System.Linq.Expressions;
 
 namespace NZWalks.API.Services
 {
@@ -12,9 +14,13 @@ namespace NZWalks.API.Services
         {
             _nZWalksUnitOfWork = nZWalksUnitOfWork;
         }
-        public async Task<(IList<Region> Items, int CurrentPage, int TotalPages, int TotalItems)> GetRegionsAsync(int pageIndex, int pageSize)
+        public async Task<(IList<Region> Items, int CurrentPage, int TotalPages, int TotalItems)> GetRegionsAsync(
+            int pageIndex, int pageSize,
+            Expression<Func<Region, bool>>? filter = null,
+            Func<IQueryable<Region>, IIncludableQueryable<Region, object>>? include = null,
+            CancellationToken cancellationToken = default)
         {
-            return await _nZWalksUnitOfWork.RegionRepository.GetAllAsync(pageIndex, pageSize);
+            return await _nZWalksUnitOfWork.RegionRepository.GetAllAsync(pageIndex, pageSize, filter, include, cancellationToken);
         }
 
         public async Task AddRegionAsync(Region region)

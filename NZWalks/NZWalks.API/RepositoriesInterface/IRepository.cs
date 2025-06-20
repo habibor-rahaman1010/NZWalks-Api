@@ -1,4 +1,5 @@
-﻿using NZWalks.API.DomainEntities;
+﻿using Microsoft.EntityFrameworkCore.Query;
+using NZWalks.API.DomainEntities;
 using System.Linq.Expressions;
 
 namespace NZWalks.API.RepositoriesInterface
@@ -7,13 +8,18 @@ namespace NZWalks.API.RepositoriesInterface
         where TEntity : class, IEntity<TKey>
         where TKey : IComparable<TKey>
     {
-        public Task<(IList<TEntity> Items, int CurrentPage, int TotalPages, int TotalItems)> GetAllAsync(int pageIndex, int pageSize, CancellationToken cancellationToken = default);
+        public Task<(IList<TEntity> Items, int CurrentPage, int TotalPages, int TotalItems)> 
+            GetAllAsync(int pageIndex, int pageSize,
+            Expression<Func<TEntity, bool>>? filter = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, 
+            CancellationToken cancellationToken = default);
+
         public Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken = default);
         public Task AddAsync(TEntity entity, CancellationToken cancellationToken = default);
         public Task UpdateAsync(TKey id, CancellationToken cancellationToken = default);
         public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
         public Task DeleteAsync(TKey id, CancellationToken cancellationToken = default);
         public Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
-        Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
+        Task<int> GetCountAsync(Expression<Func<TEntity, bool>>? filter = null);
     }
 }
