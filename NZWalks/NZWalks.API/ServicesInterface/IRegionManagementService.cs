@@ -7,8 +7,7 @@ namespace NZWalks.API.ServicesInterface
     public interface IRegionManagementService
     {
         public Task<(IList<Region> Items, int CurrentPage, int TotalPages, int TotalItems)> GetRegionsAsync(int pageIndex, int pageSize,
-            Expression<Func<Region, bool>>? filter = null,
-            Func<IQueryable<Region>, IIncludableQueryable<Region, object>>? include = null,
+            string? search = null,
             CancellationToken cancellationToken = default);
 
         public Task<Region> GetByIdRegion(Guid id);

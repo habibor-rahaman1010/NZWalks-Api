@@ -16,11 +16,15 @@ namespace NZWalks.API.Services
         }
         public async Task<(IList<Region> Items, int CurrentPage, int TotalPages, int TotalItems)> GetRegionsAsync(
             int pageIndex, int pageSize,
-            Expression<Func<Region, bool>>? filter = null,
-            Func<IQueryable<Region>, IIncludableQueryable<Region, object>>? include = null,
+            string? search = null,
             CancellationToken cancellationToken = default)
         {
-            return await _nZWalksUnitOfWork.RegionRepository.GetAllAsync(pageIndex, pageSize, filter, include, cancellationToken);
+            Expression<Func<Region, bool>>? filter = null;
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                filter = x => x.Name.Contains(search) || x.Code.Contains(search);
+            }
+            return await _nZWalksUnitOfWork.RegionRepository.GetAllAsync(pageIndex, pageSize, filter, null, cancellationToken);
         }
 
         public async Task AddRegionAsync(Region region)

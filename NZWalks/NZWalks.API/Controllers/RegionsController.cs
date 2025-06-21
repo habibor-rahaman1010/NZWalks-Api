@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NZWalks.API.DomainEntities;
 using NZWalks.API.Dtos.RegionDto;
 using NZWalks.API.ServicesInterface;
 using NZWalks.API.Utilities;
+using System.Linq.Expressions;
 
 namespace NZWalks.API.Controllers
 {
@@ -25,9 +27,10 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<RegionDto>>> GetRegionListAsync(int pageIndex = 1, int pageSize = 5)
+        public async Task<ActionResult<IList<RegionDto>>> GetRegionListAsync(int pageIndex = 1, int pageSize = 5, string? search = null)
         {
-            var (Items, CurrentPage, TotalPages, TotalItems) = await _regionManagementService.GetRegionsAsync(pageIndex, pageSize);
+            var (Items, CurrentPage, TotalPages, TotalItems) = await _regionManagementService.GetRegionsAsync(pageIndex, pageSize, search);
+
             if (Items == null)
             {
                 return NotFound(new { Message = "The region was not found!" });
