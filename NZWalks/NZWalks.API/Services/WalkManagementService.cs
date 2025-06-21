@@ -22,7 +22,9 @@ namespace NZWalks.API.Services
 
         public async Task<Walk> GetByIdWalkAsync(Guid id)
         {
-            return await _nZWalksUnitOfWork.WalkRepository.GetByIdAsync(id);
+            return await _nZWalksUnitOfWork.WalkRepository.GetByIdAsync(id, include: q => q
+                .Include(w => w.Difficulty)
+                .Include(w => w.Region));
         }
 
         public async Task<(IList<Walk> Items, int CurrentPage, int TotalPages, int TotalItems)> 

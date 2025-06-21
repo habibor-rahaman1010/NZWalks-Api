@@ -62,7 +62,7 @@ namespace NZWalks.API.Repositories
 
             if(include != null)
             {
-                query = include(query);
+                query = include.Invoke(query);
             }
 
             var totalItems = await query.CountAsync(cancellationToken);
@@ -76,10 +76,16 @@ namespace NZWalks.API.Repositories
             return (items, pageIndex, totalPages, totalItems);
         }
 
-        public virtual async Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken)
+        public virtual async Task<TEntity> GetByIdAsync(TKey id, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, CancellationToken cancellationToken = default)
         {
             IQueryable<TEntity> query = _dbSet.AsQueryable<TEntity>();
+            if (include != null)
+            {
+                query = include.Invoke(query);
+            }
+
             var item = await query.FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
+
             if (item != null)
             {
                 return item;

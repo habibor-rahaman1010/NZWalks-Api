@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.DomainEntities;
+using NZWalks.API.Dtos.RegionsDto;
 using NZWalks.API.Dtos.WalksDto;
 using NZWalks.API.ServicesInterface;
 using NZWalks.API.Utilities;
@@ -24,6 +25,25 @@ namespace NZWalks.API.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<ViewWalkDto>> GetWalkListAsync(int pageIndex = 1, int pageSize = 5, string? search = null)
+        {
+            var (Items, CurrentPage, TotalPages, TotalItems) = await _walkManagementService.GetWalksAsync(pageIndex, pageSize, search);
+            if (Items == null)
+            {
+                return NotFound(new { Message = "No have walks in the database!" });
+            };
+
+            var WalkDto = _mapper.Map<IList<ViewWalkDto>>(Items);
+            return Ok(new
+            {
+                TotalItems,
+                CurrentPage,
+                TotalPages,
+                Items = WalkDto
+            });
+        }
+
         [HttpPost]
         public async Task<ActionResult<WalkDto>> CreatWalkAsync([FromBody] WalkAddRequestDto request)
         {
@@ -37,20 +57,20 @@ namespace NZWalks.API.Controllers
             await _walkManagementService.AddWalkAsync(walk);
 
             var walkDto = _mapper.Map<WalkDto>(walk);
-            return Ok(walkDto);
-        }
+            return CreatedAtAction(nameof(GetWalkByIdAsync), new { Id = walk.Id }, walkDto);
+        }       
 
-        [HttpGet]
-        public async Task<ActionResult<ViewWalkDto>> GetWalkListAsync(int pageIndex = 1, int pageSize = 5, string? search = null)
+        [HttpGet, Route("{id:Guid}")]
+        public async Task<ActionResult<ViewWalkDto>> GetWalkByIdAsync(Guid id)
         {
-            var (Items, CurrentPage, TotalPages, TotalItems) = await _walkManagementService.GetWalksAsync(pageIndex, pageSize, search);
-            if (Items == null)
+            var walk = await _walkManagementService.GetByIdWalkAsync(id);
+            if (walk == null)
             {
-                return NotFound(new { Message = "No have walks in the database!" });
-            };
+                return NotFound(new { Masseg = "The walk is not found!" });
+            }
 
-            var viewWalkDto = _mapper.Map<IList<ViewWalkDto>>(Items);
-            return Ok(viewWalkDto);
+            var walkDto = _mapper.Map<ViewWalkDto>(walk);
+            return Ok(walkDto);
         }
     }
 }

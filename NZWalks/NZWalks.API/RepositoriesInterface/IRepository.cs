@@ -14,7 +14,7 @@ namespace NZWalks.API.RepositoriesInterface
             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null, 
             CancellationToken cancellationToken = default);
 
-        public Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken = default);
+        public Task<TEntity> GetByIdAsync(TKey id, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, CancellationToken cancellationToken = default);
         public Task AddAsync(TEntity entity, CancellationToken cancellationToken = default);
         public Task UpdateAsync(TKey id, CancellationToken cancellationToken = default);
         public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
