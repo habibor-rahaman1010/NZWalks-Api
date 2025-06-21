@@ -10,8 +10,8 @@ namespace NZWalks.API.RepositoriesInterface
     {
         public Task<(IList<TEntity> Items, int CurrentPage, int TotalPages, int TotalItems)> 
             GetAllAsync(int pageIndex, int pageSize,
-            Expression<Func<TEntity, bool>>? filter = null,
-            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, 
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null, 
             CancellationToken cancellationToken = default);
 
         public Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken = default);
@@ -20,6 +20,6 @@ namespace NZWalks.API.RepositoriesInterface
         public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
         public Task DeleteAsync(TKey id, CancellationToken cancellationToken = default);
         public Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
-        Task<int> GetCountAsync(Expression<Func<TEntity, bool>>? filter = null);
+        Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
     }
 }

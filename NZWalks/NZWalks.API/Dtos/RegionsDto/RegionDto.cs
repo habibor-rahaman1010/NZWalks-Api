@@ -1,4 +1,4 @@
-﻿namespace NZWalks.API.Dtos.RegionDto
+﻿namespace NZWalks.API.Dtos.RegionsDto
 {
     public class RegionDto
     {

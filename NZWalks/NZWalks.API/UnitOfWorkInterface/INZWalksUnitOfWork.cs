@@ -6,5 +6,6 @@ namespace NZWalks.API.UnitOfWorkInterface
     {
         public IRegionRepository RegionRepository { get; }
         public IDifficultyRepository DifficultyRepository { get; }
+        public IWalkRepository WalkRepository { get; }
     }
 }

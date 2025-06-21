@@ -24,10 +24,13 @@ namespace NZWalks.API.ExtensionMethods
             services.AddScoped<IDifficultyRepository, DifficultyRepository>();
             services.AddScoped<IDifficultyManagementService, DifficultyManagementService>();
             services.AddScoped<IApplicationTime, ApplicationTime>();
+            services.AddScoped<IWalkRepository, WalkRepository>();
+            services.AddScoped<IWalkManagementService, WalkManagementService>();
             
             return services;
         }
 
+        //Seeding data...
         public static IApplicationBuilder UseDatabaseSeeder(this IApplicationBuilder app)
         {
             using (var scope = app.ApplicationServices.CreateScope())

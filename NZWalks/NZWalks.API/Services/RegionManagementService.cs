@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
-using NZWalks.API.DomainEntities;
+﻿using NZWalks.API.DomainEntities;
 using NZWalks.API.ServicesInterface;
 using NZWalks.API.UnitOfWorkInterface;
 using System.Linq.Expressions;

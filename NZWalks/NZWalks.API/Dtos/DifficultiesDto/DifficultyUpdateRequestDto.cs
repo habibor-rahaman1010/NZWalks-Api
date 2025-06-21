@@ -1,4 +1,4 @@
-﻿namespace NZWalks.API.Dtos.DifficultyDto
+﻿namespace NZWalks.API.Dtos.DifficultiesDto
 {
     public class DifficultyUpdateRequestDto
     {

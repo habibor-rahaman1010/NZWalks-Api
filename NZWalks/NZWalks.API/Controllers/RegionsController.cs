@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using NZWalks.API.DomainEntities;
-using NZWalks.API.Dtos.RegionDto;
+using NZWalks.API.Dtos.RegionsDto;
 using NZWalks.API.ServicesInterface;
 using NZWalks.API.Utilities;
-using System.Linq.Expressions;
 
 namespace NZWalks.API.Controllers
 {

@@ -8,13 +8,16 @@ namespace NZWalks.API.UnitOfWorks
     {
         public IRegionRepository RegionRepository { get; private set; }
         public IDifficultyRepository DifficultyRepository { get; private set; }
+        public IWalkRepository WalkRepository { get; private set; }
 
         public NZWalksUnitOfWork(NZWalksDbContext dbContext, 
             IRegionRepository regionRepository,
-            IDifficultyRepository difficultyRepository) : base(dbContext)
+            IDifficultyRepository difficultyRepository,
+            IWalkRepository walkRepository) : base(dbContext)
         {
             RegionRepository = regionRepository;
             DifficultyRepository = difficultyRepository;
+            WalkRepository = walkRepository;
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.DomainEntities;
-using NZWalks.API.Dtos.DifficultyDto;
-using NZWalks.API.Dtos.RegionDto;
+using NZWalks.API.Dtos.DifficultiesDto;
 using NZWalks.API.ServicesInterface;
 using NZWalks.API.Utilities;
 
