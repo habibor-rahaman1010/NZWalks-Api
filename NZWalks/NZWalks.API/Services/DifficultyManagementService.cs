@@ -16,12 +16,14 @@ namespace NZWalks.API.Services
         }
 
         public Task<(IList<Difficulty> Items, int CurrentPage, int TotalPages, int TotalItems)> GetDifficultiesAsync(
-            int pageIndex, int pageSize,
-            Expression<Func<Difficulty, bool>>? filter = null,
-            Func<IQueryable<Difficulty>, IIncludableQueryable<Difficulty, object>>? include = null,
-            CancellationToken cancellationToken = default)
+            int pageIndex, int pageSize, string? search = null, CancellationToken cancellationToken = default)
         {
-             return _nZWalksUnitOfWork.DifficultyRepository.GetAllAsync(pageIndex, pageSize);
+            Expression<Func<Difficulty, bool>>? filter = null;
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                filter = x => x.Name.Contains(search);
+            }
+            return _nZWalksUnitOfWork.DifficultyRepository.GetAllAsync(pageIndex, pageSize, filter);
         }
 
         public async Task<Difficulty> GetByIdDifficultyAsync(Guid id)

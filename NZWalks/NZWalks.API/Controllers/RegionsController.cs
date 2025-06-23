@@ -25,7 +25,7 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<RegionDto>>> GetRegionListAsync(int pageIndex = 1, int pageSize = 5, string? search = null)
+        public async Task<ActionResult<IList<RegionDto>>> GetRegionListAsync([FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 5, [FromQuery] string? search = null)
         {
             var (Items, CurrentPage, TotalPages, TotalItems) = await _regionManagementService.GetRegionsAsync(pageIndex, pageSize, search);
 

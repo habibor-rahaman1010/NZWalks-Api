@@ -14,9 +14,7 @@ namespace NZWalks.API.Services
             _nZWalksUnitOfWork = nZWalksUnitOfWork;
         }
         public async Task<(IList<Region> Items, int CurrentPage, int TotalPages, int TotalItems)> GetRegionsAsync(
-            int pageIndex, int pageSize,
-            string? search = null,
-            CancellationToken cancellationToken = default)
+            int pageIndex, int pageSize, string? search = null, CancellationToken cancellationToken = default)
         {
             Expression<Func<Region, bool>>? filter = null;
             if (!string.IsNullOrWhiteSpace(search))

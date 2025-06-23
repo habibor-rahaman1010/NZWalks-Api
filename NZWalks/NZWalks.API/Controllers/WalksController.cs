@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.DomainEntities;
 using NZWalks.API.Dtos.WalksDto;
-using NZWalks.API.Services;
 using NZWalks.API.ServicesInterface;
 using NZWalks.API.Utilities;
 
@@ -26,7 +25,7 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ViewWalkDto>> GetWalkListAsync(int pageIndex = 1, int pageSize = 5, string? search = null)
+        public async Task<ActionResult<ViewWalkDto>> GetWalkListAsync([FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 5, [FromQuery] string? search = null)
         {
             var (Items, CurrentPage, TotalPages, TotalItems) = await _walkManagementService.GetWalksAsync(pageIndex, pageSize, search);
             if (Items == null)
@@ -61,7 +60,7 @@ namespace NZWalks.API.Controllers
         }       
 
         [HttpGet, Route("{id:Guid}")]
-        public async Task<ActionResult<ViewWalkDto>> GetWalkByIdAsync(Guid id)
+        public async Task<ActionResult<ViewWalkDto>> GetWalkByIdAsync([FromRoute] Guid id)
         {
             var walk = await _walkManagementService.GetByIdWalkAsync(id);
             if (walk == null)
@@ -74,7 +73,7 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpPut, Route("{id:Guid}")]
-        public async Task<ActionResult<ViewWalkDto>> WalkUpdateAsync(Guid id, WalkUpdateRequestDto request)
+        public async Task<ActionResult<ViewWalkDto>> WalkUpdateAsync([FromRoute] Guid id, [FromBody] WalkUpdateRequestDto request)
         {
             var walk = await _walkManagementService.GetByIdWalkAsync(id);
             if (walk == null)
@@ -91,7 +90,7 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpDelete, Route("{id:Guid}")]
-        public async Task<ActionResult<ViewWalkDto>> WalkDeleteAsync(Guid id)
+        public async Task<ActionResult<ViewWalkDto>> WalkDeleteAsync([FromRoute] Guid id)
         {
             var walk = await _walkManagementService.GetByIdWalkAsync(id);
 

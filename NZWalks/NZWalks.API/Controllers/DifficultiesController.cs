@@ -25,9 +25,9 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<DifficultyDto>>> GetDifficultyListAsync(int pageIndex = 1, int pageSize = 5)
+        public async Task<ActionResult<IList<DifficultyDto>>> GetDifficultyListAsync([FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 5, [FromQuery] string? search = null)
         {
-            var (Items, CurrentPage, TotalPages, TotalItems) = await _difficultyManagementService.GetDifficultiesAsync(pageIndex, pageSize);
+            var (Items, CurrentPage, TotalPages, TotalItems) = await _difficultyManagementService.GetDifficultiesAsync(pageIndex, pageSize, search);
             var result = _mapper.Map<List<DifficultyDto>>(Items);
 
             return Ok(new
