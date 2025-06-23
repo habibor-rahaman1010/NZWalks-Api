@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using NZWalks.API.CustomActionFilters;
 using NZWalks.API.DomainEntities;
 using NZWalks.API.Dtos.DifficultiesDto;
 using NZWalks.API.ServicesInterface;
@@ -52,6 +53,7 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpPost]
+        [ValidateModel]
         public async Task<ActionResult<DifficultyDto>> CreateDifficultyAsync([FromBody] DiffcultyAddRequestDto request)
         {
             if (request == null)
@@ -68,6 +70,7 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpPut, Route("{id:guid}")]
+        [ValidateModel]
         public async Task<ActionResult<DifficultyDto>> EditDifficultyAsync(Guid id, DifficultyUpdateRequestDto request)
         {
             if(request == null)
