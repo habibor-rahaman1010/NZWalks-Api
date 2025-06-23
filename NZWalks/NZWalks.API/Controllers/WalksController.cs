@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.DomainEntities;
-using NZWalks.API.Dtos.RegionsDto;
 using NZWalks.API.Dtos.WalksDto;
+using NZWalks.API.Services;
 using NZWalks.API.ServicesInterface;
 using NZWalks.API.Utilities;
 
@@ -71,6 +71,38 @@ namespace NZWalks.API.Controllers
 
             var walkDto = _mapper.Map<ViewWalkDto>(walk);
             return Ok(walkDto);
+        }
+
+        [HttpPut, Route("{id:Guid}")]
+        public async Task<ActionResult<ViewWalkDto>> WalkUpdateAsync(Guid id, WalkUpdateRequestDto request)
+        {
+            var walk = await _walkManagementService.GetByIdWalkAsync(id);
+            if (walk == null)
+            {
+                return NotFound(new { Masseg = "The walk is not found!" });
+            }
+            var updateWalk = _mapper.Map(request, walk);
+            updateWalk.ModifiedDate = _applicationTime.GetCurrentTime();
+            await _walkManagementService.UpdateWalkAsync(updateWalk);
+
+            var updatedWalkWithIncludes = await _walkManagementService.GetByIdWalkAsync(updateWalk.Id);
+            var result = _mapper.Map<ViewWalkDto>(updatedWalkWithIncludes);
+            return Ok(result);
+        }
+
+        [HttpDelete, Route("{id:Guid}")]
+        public async Task<ActionResult<ViewWalkDto>> WalkDeleteAsync(Guid id)
+        {
+            var walk = await _walkManagementService.GetByIdWalkAsync(id);
+
+            if (walk == null)
+            {
+                return NotFound(new { Message = "Walk not found in database!" });
+            }
+
+            var result = _mapper.Map<ViewWalkDto>(walk);
+            await _walkManagementService.DeleteWalkAsync(walk);
+            return Ok(new { Message = "Walk has succesfully deleted!", Result = result });
         }
     }
 }

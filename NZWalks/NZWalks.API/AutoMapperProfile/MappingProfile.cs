@@ -56,6 +56,8 @@ namespace NZWalks.API.AutoMapperProfile
                             opt => opt.MapFrom(src => src.ModifiedDate.HasValue
                                 ? src.ModifiedDate.Value.ToString("dd MMM yyyy hh:mm:ss tt")
                                 : "Not Modified")).ReverseMap();
+
+            CreateMap<WalkUpdateRequestDto, Walk>().ReverseMap();
         }
     }
 }
