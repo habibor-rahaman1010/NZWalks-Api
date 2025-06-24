@@ -17,7 +17,8 @@ namespace NZWalks.API.ExtensionMethods
         {
             //Resolved here all service dependencies...
             services.AddDbContext<NZWalksDbContext>(options => options.UseSqlServer(connectionString, (m) => m.MigrationsAssembly(migrationAssembly)));
-            
+            services.AddDbContext<NZWalksAuthDbContext>(options => options.UseSqlServer(connectionString, (m) => m.MigrationsAssembly(migrationAssembly)));
+
             services.AddScoped<INZWalksUnitOfWork, NZWalksUnitOfWork>();
             services.AddScoped<IRegionRepository, RegionRepository>();
             services.AddScoped<IRegionManagementService, RegionManagementService>();

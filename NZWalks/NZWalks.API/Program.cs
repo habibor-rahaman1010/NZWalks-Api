@@ -59,6 +59,8 @@ namespace NZWalks.API
                     options.SuppressAsyncSuffixInActionNames = false;
                 });
 
+                builder.Services.AddNZWalksIdentity();
+
                 builder.Services.AddJwtAuthentication(
                     builder.Configuration["Jwt:Key"],
                     builder.Configuration["Jwt:Issuer"],
