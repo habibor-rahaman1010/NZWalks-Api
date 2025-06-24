@@ -44,7 +44,21 @@ namespace NZWalks.API.ExtensionMethods
             return services;
         }
 
+        public static IServiceCollection AddCorsPolicy(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecific", builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000")
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
 
+            });
+
+            return services;
+        }
 
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, string key, string issuer, string audience)
         {

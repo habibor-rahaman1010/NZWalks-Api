@@ -54,10 +54,6 @@ namespace NZWalks.API
                 //This service for automapper
                 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-                builder.Services.AddControllers(options =>
-                {
-                    options.SuppressAsyncSuffixInActionNames = false;
-                });
 
                 builder.Services.AddNZWalksIdentity();
 
@@ -65,6 +61,13 @@ namespace NZWalks.API
                     builder.Configuration["Jwt:Key"],
                     builder.Configuration["Jwt:Issuer"],
                     builder.Configuration["Jwt:Audience"]);
+
+                builder.Services.AddCorsPolicy();
+
+                builder.Services.AddControllers(options =>
+                {
+                    options.SuppressAsyncSuffixInActionNames = false;
+                });
 
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen();
@@ -81,8 +84,10 @@ namespace NZWalks.API
                 }
 
                 app.UseDatabaseSeeder();
+                await app.SeedInitialDataAsync();
 
                 app.UseHttpsRedirection();
+                app.UseCors("AllowSites");
                 app.UseAuthentication();
                 app.UseAuthorization();
 
