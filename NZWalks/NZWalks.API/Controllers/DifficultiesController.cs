@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.CustomActionFilters;
 using NZWalks.API.DomainEntities;
@@ -9,7 +10,7 @@ using NZWalks.API.Utilities;
 namespace NZWalks.API.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize]
     public class DifficultiesController : ControllerBase
     {
         private readonly IDifficultyManagementService _difficultyManagementService;

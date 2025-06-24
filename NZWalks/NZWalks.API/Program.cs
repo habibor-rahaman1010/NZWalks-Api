@@ -59,10 +59,14 @@ namespace NZWalks.API
                     options.SuppressAsyncSuffixInActionNames = false;
                 });
 
+                builder.Services.AddJwtAuthentication(
+                    builder.Configuration["Jwt:Key"],
+                    builder.Configuration["Jwt:Issuer"],
+                    builder.Configuration["Jwt:Audience"]);
+
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen();
                 builder.Services.AddOpenApi();
-
 
                 var app = builder.Build();
 
@@ -77,7 +81,7 @@ namespace NZWalks.API
                 app.UseDatabaseSeeder();
 
                 app.UseHttpsRedirection();
-
+                app.UseAuthentication();
                 app.UseAuthorization();
 
                 app.MapControllers();
