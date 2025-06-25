@@ -1,6 +1,4 @@
-﻿using NZWalks.API.RepositoriesInterface;
-
-namespace NZWalks.API.UnitOfWorkInterface
+﻿namespace NZWalks.API.UnitOfWorkInterface
 {
     public interface INZWalksUnitOfWork : IUnitOfWork
     {

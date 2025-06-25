@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using NZWalks.API.DomainEntities;
-using NZWalks.API.RepositoriesInterface;
-using System.Linq.Expressions;
-
-namespace NZWalks.API.Repositories
+﻿namespace NZWalks.API.Repositories
 {
     public abstract class Repository<TEntity, TKey> : IRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>

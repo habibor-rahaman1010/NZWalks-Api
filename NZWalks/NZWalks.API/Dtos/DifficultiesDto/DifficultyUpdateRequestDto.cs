@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace NZWalks.API.Dtos.DifficultiesDto
+﻿namespace NZWalks.API.Dtos.DifficultiesDto
 {
     public class DifficultyUpdateRequestDto
     {

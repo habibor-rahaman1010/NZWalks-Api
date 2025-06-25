@@ -1,10 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using NZWalks.API.ExtensionMethods;
-using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.MSSqlServer;
-using System.Reflection;
-
 namespace NZWalks.API
 {
     public class Program

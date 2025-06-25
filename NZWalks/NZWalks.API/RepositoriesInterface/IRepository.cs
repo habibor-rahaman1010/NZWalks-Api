@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
-using NZWalks.API.DomainEntities;
-using System.Linq.Expressions;
-
-namespace NZWalks.API.RepositoriesInterface
+﻿namespace NZWalks.API.RepositoriesInterface
 {
     public interface IRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>

@@ -1,16 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using NZWalks.API.CustomActionFilters;
-using NZWalks.API.DomainEntities;
-using NZWalks.API.Dtos.RegionsDto;
-using NZWalks.API.ServicesInterface;
-using NZWalks.API.Utilities;
-
-namespace NZWalks.API.Controllers
+﻿namespace NZWalks.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RegionsController : ControllerBase
+    public class RegionsController : ApiBaseController
     {
         private readonly IRegionManagementService _regionManagementService;
         private readonly IMapper _mapper;

@@ -1,8 +1,4 @@
-﻿using NZWalks.API.Data;
-using NZWalks.API.DomainEntities;
-using NZWalks.API.RepositoriesInterface;
-
-namespace NZWalks.API.Repositories
+﻿namespace NZWalks.API.Repositories
 {
     public class DifficultyRepository : Repository<Difficulty, Guid>, IDifficultyRepository
     {

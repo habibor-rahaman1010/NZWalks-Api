@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
-using NZWalks.API.DomainEntities;
-using System.Linq.Expressions;
-
-namespace NZWalks.API.ServicesInterface
+﻿namespace NZWalks.API.ServicesInterface
 {
     public interface IDifficultyManagementService
     {

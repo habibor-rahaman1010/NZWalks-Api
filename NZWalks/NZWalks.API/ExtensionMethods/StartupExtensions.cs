@@ -1,6 +1,4 @@
-﻿using NZWalks.API.IdentitySeeder;
-
-namespace NZWalks.API.ExtensionMethods
+﻿namespace NZWalks.API.ExtensionMethods
 {
     public static class StartupExtensions
     {

@@ -1,16 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using NZWalks.API.CustomActionFilters;
-using NZWalks.API.DomainEntities;
-using NZWalks.API.Dtos.WalksDto;
-using NZWalks.API.ServicesInterface;
-using NZWalks.API.Utilities;
-
-namespace NZWalks.API.Controllers
+﻿namespace NZWalks.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WalksController : ControllerBase
+    public class WalksController : ApiBaseController
     {
         private readonly IWalkManagementService _walkManagementService;
         private readonly IMapper _mapper;

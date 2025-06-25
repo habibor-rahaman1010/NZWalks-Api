@@ -1,17 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using NZWalks.API.CustomActionFilters;
-using NZWalks.API.DomainEntities;
-using NZWalks.API.Dtos.DifficultiesDto;
-using NZWalks.API.ServicesInterface;
-using NZWalks.API.Utilities;
-
-namespace NZWalks.API.Controllers
+﻿namespace NZWalks.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController, Authorize]
-    public class DifficultiesController : ControllerBase
+    public class DifficultiesController : ApiBaseController
     {
         private readonly IDifficultyManagementService _difficultyManagementService;
         private readonly IApplicationTime _applicationTime;

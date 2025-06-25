@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using NZWalks.API.NZWalksIdentity;
-
-namespace NZWalks.API.IdentitySeeder
+﻿namespace NZWalks.API.IdentitySeeder
 {
     public static class RoleSeeder
     {

@@ -1,15 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NZWalks.API.Data;
-using NZWalks.API.Repositories;
-using NZWalks.API.RepositoriesInterface;
-using NZWalks.API.Services;
-using NZWalks.API.ServicesInterface;
-using NZWalks.API.UnitOfWorks;
-using NZWalks.API.UnitOfWorkInterface;
-using System.Reflection;
-using NZWalks.API.Utilities;
-
-namespace NZWalks.API.ExtensionMethods
+﻿namespace NZWalks.API.ExtensionMethods
 {
     public static class ServiceCollectionExtensions
     {

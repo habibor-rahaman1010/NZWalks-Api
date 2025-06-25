@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using NZWalks.API.Data;
-using NZWalks.API.NZWalksIdentity;
-using System.Text;
-
-namespace NZWalks.API.ExtensionMethods
+﻿namespace NZWalks.API.ExtensionMethods
 {
     public static class NZWalkIdentityExtentions
     {

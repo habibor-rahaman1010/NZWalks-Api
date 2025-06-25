@@ -1,7 +1,4 @@
-﻿using NZWalks.API.Dtos.DifficultiesDto;
-using NZWalks.API.Dtos.RegionsDto;
-
-namespace NZWalks.API.Dtos.WalksDto
+﻿namespace NZWalks.API.Dtos.WalksDto
 {
     public class ViewWalkDto
     {

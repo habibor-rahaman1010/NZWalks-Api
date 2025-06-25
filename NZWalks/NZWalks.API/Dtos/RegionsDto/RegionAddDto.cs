@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-
-namespace NZWalks.API.Dtos.RegionsDto
+﻿namespace NZWalks.API.Dtos.RegionsDto
 {
     public class RegionAddDto
     {

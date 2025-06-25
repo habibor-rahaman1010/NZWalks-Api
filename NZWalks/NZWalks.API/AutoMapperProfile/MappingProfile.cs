@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using NZWalks.API.DomainEntities;
-using NZWalks.API.Dtos.DifficultiesDto;
-using NZWalks.API.Dtos.RegionsDto;
-using NZWalks.API.Dtos.WalksDto;
-
-namespace NZWalks.API.AutoMapperProfile
+﻿namespace NZWalks.API.AutoMapperProfile
 {
     public class MappingProfile : Profile
     {

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-
-namespace NZWalks.API.Dtos.WalksDto
+﻿namespace NZWalks.API.Dtos.WalksDto
 {
     public class WalkAddRequestDto
     {

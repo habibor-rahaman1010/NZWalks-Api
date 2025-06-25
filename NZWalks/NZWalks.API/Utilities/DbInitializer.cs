@@ -1,7 +1,4 @@
-﻿using NZWalks.API.Data;
-using NZWalks.API.DomainEntities;
-
-namespace NZWalks.API.Utilities
+﻿namespace NZWalks.API.Utilities
 {
     public class DbInitializer
     {
