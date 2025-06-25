@@ -32,3 +32,4 @@ global using NZWalks.API.UnitOfWorks;
 global using NZWalks.API.IdentitySeeder;
 global using System.ComponentModel.DataAnnotations;
 global using System.Diagnostics.CodeAnalysis;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

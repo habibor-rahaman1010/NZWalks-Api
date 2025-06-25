@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using NZWalks.API.NZWalksIdentity;
-
-namespace NZWalks.API.Data
+﻿namespace NZWalks.API.Data
 {
     public class NZWalksAuthDbContext : IdentityDbContext<ApplicationUser,
         ApplicationRole, Guid,
@@ -13,6 +9,12 @@ namespace NZWalks.API.Data
         public NZWalksAuthDbContext(DbContextOptions<NZWalksAuthDbContext> options) : base(options)
         {
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(NZWalksAuthDbContext).Assembly);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
