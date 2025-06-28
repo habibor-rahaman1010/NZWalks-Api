@@ -1,4 +1,6 @@
-﻿namespace NZWalks.API.AutoMapperProfile
+﻿using NZWalks.API.Dtos.AuthenticationDto;
+
+namespace NZWalks.API.AutoMapperProfile
 {
     public class MappingProfile : Profile
     {
@@ -52,6 +54,7 @@
                                 : "Not Modified")).ReverseMap();
 
             CreateMap<WalkUpdateRequestDto, Walk>().ReverseMap();
+
         }
     }
 }

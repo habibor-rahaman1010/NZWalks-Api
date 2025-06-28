@@ -14,8 +14,6 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(NZWalksDbContext).Assembly);
-
             modelBuilder.Entity<Walk>()
                 .HasOne(w => w.Difficulty)
                 .WithMany()
