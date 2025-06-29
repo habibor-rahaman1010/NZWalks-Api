@@ -1,6 +1,4 @@
 ﻿using NZWalks.API.Dtos.AuthenticationDto;
-using NZWalks.API.NZWalksIdentity;
-using NZWalks.API.RepositoriesInterface;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -46,7 +44,25 @@ namespace NZWalks.API.Repositories
             });
         }
 
-        public async Task<string> GenerateRefreshTokenAsync()
+
+        public async Task<string> GenerateAndSaveRefreshTokenAsync(ApplicationUser user)
+        {
+            var refreshToken = await GenerateRefreshTokenAsync();
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = _applicationTime.GetUtcNowTime().AddDays(15);
+            await _applicationUserManager.UpdateAsync(user);
+            return refreshToken;
+        }
+       
+
+        public async Task<UserLoginResponseDto> RefreshTokenAsync(RefreshTokenRequestDto request)
+        {
+            var user = await ValidateRefreshTokenAsync(request.UserId, request.RefreshToken);
+            if (user == null) return null;
+            return await CreateResponseTokenAsync(user);
+        }
+
+        private async Task<string> GenerateRefreshTokenAsync()
         {
             return await Task<string>.Run(() =>
             {
@@ -57,18 +73,7 @@ namespace NZWalks.API.Repositories
             });
         }
 
-
-
-        public async Task<string> GenerateAndSaveRefreshTokenAsync(ApplicationUser user)
-        {
-            var refreshToken = await GenerateRefreshTokenAsync();
-            user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = _applicationTime.GetUtcNowTime().AddDays(15);
-            await _applicationUserManager.UpdateAsync(user);
-            return refreshToken;
-        }
-
-        public async Task<ApplicationUser> ValidateRefreshTokenAsync(Guid userId, string refreshToken)
+        private async Task<ApplicationUser> ValidateRefreshTokenAsync(Guid userId, string refreshToken)
         {
             var user = await _applicationUserManager.FindByIdAsync(userId.ToString());
             if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= _applicationTime.GetCurrentTime())
@@ -78,7 +83,7 @@ namespace NZWalks.API.Repositories
             return user;
         }
 
-        public async Task<UserLoginResponseDto> CreateResponseTokenAsync(ApplicationUser user)
+        private async Task<UserLoginResponseDto> CreateResponseTokenAsync(ApplicationUser user)
         {
             var roles = await _applicationUserManager.GetRolesAsync(user);
             return new UserLoginResponseDto
@@ -87,13 +92,6 @@ namespace NZWalks.API.Repositories
                 RefreshToken = await GenerateAndSaveRefreshTokenAsync(user),
                 Email = user.Email
             };
-        }
-
-        public async Task<UserLoginResponseDto> RefreshTokenAsync(RefreshTokenRequestDto request)
-        {
-            var user = await ValidateRefreshTokenAsync(request.UserId, request.RefreshToken);
-            if (user == null) return null;
-            return await CreateResponseTokenAsync(user);
         }
     }
 }
