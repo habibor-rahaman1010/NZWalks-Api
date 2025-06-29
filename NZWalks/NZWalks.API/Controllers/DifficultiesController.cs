@@ -18,6 +18,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = "Read,Write")]
         public async Task<ActionResult<IList<DifficultyDto>>> GetDifficultyListAsync([FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 5, [FromQuery] string? search = null)
         {
             var (Items, CurrentPage, TotalPages, TotalItems) = await _difficultyManagementService.GetDifficultiesAsync(pageIndex, pageSize, search);
@@ -33,6 +34,7 @@
         }
 
         [HttpGet, Route("{id:guid}")]
+        [Authorize(Roles = "Read, Write")]
         public async Task<ActionResult<DifficultyDto>> DiffcultyGetByIdAsync([FromRoute] Guid id)
         {
             var difficulty = await _difficultyManagementService.GetByIdDifficultyAsync(id);
@@ -46,6 +48,7 @@
 
         [HttpPost]
         [ValidateModel]
+        [Authorize(Roles = "Write")]
         public async Task<ActionResult<DifficultyDto>> CreateDifficultyAsync([FromBody] DiffcultyAddRequestDto request)
         {
             if (request == null)
@@ -63,6 +66,7 @@
 
         [HttpPut, Route("{id:guid}")]
         [ValidateModel]
+        [Authorize(Roles = "Write")]
         public async Task<ActionResult<DifficultyDto>> EditDifficultyAsync(Guid id, DifficultyUpdateRequestDto request)
         {
             if(request == null)
@@ -84,6 +88,7 @@
         }
 
         [HttpDelete, Route("{id:guid}")]
+        [Authorize(Roles = "Write")]
         public async Task<IActionResult> DifficultyDeleteAsync(Guid id)
         {
             var difficulty = await _difficultyManagementService.GetByIdDifficultyAsync(id);

@@ -79,18 +79,21 @@ namespace NZWalks.API.Controllers.Account
 
             if (user != null)
             {
-                var roles = await _applicationUserManager.GetRolesAsync(user);
                 var checkPasswordResult = await _applicationUserManager.CheckPasswordAsync(user, request.Password);
                 if (checkPasswordResult == true)
                 {
-                    var token = await _tokenRepository.CreateJwtTokenAsync(user, roles.ToList());
-                    return Ok(new
+                    var roles = await _applicationUserManager.GetRolesAsync(user);
+                    if (roles != null)
                     {
-                        Message = "User logedin successfully!",
-                        Email = user.Email,
-                        Token = token,
-                        RefreshToken = await _tokenRepository.GenerateAndSaveRefreshTokenAsync(user),
-                    });
+                        var token = await _tokenRepository.CreateJwtTokenAsync(user, roles.ToList());
+                        return Ok(new
+                        {
+                            Message = "User logedin successfully!",
+                            Email = user.Email,
+                            JwtToken = token,
+                            RefreshToken = await _tokenRepository.GenerateAndSaveRefreshTokenAsync(user),
+                        });
+                    }
                 }
                 else
                 {

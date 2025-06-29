@@ -36,7 +36,7 @@ namespace NZWalks.API.Repositories
                         issuer: _configuration["Jwt:Issuer"],
                         audience: _configuration["Jwt:Audience"],
                         claims: claims,
-                        expires: _applicationTime.GetUtcNowTime().AddMinutes(1),
+                        expires: _applicationTime.GetCurrentTime().AddMinutes(1),
                         signingCredentials: credentials
                     );
 
@@ -49,7 +49,7 @@ namespace NZWalks.API.Repositories
         {
             var refreshToken = await GenerateRefreshTokenAsync();
             user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = _applicationTime.GetUtcNowTime().AddDays(15);
+            user.RefreshTokenExpiryTime = _applicationTime.GetCurrentTime().AddDays(15);
             await _applicationUserManager.UpdateAsync(user);
             return refreshToken;
         }
