@@ -16,7 +16,9 @@
             services.AddScoped<IApplicationTime, ApplicationTime>();
             services.AddScoped<IWalkRepository, WalkRepository>();
             services.AddScoped<IWalkManagementService, WalkManagementService>();
-            
+            services.AddScoped<ITokenRepository, TokenRepository>();
+
+
             return services;
         }
 

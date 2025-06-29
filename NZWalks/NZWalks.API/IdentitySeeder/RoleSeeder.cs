@@ -5,20 +5,31 @@
         public static async Task SeedRolesAsync(IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-            string[] roles = new string[] { "Admin", "Read", "Write", "Support" };
+            var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+            var logger = loggerFactory.CreateLogger("RolesSeeder");
 
-            foreach (string role in roles)
+            try
             {
-                if(!await roleManager.RoleExistsAsync(role))
+                string[] roles = new string[] { "Admin", "Read", "Write", "Support" };
+
+                foreach (string role in roles)
                 {
-                    await roleManager.CreateAsync(new ApplicationRole()
+                    if (!await roleManager.RoleExistsAsync(role))
                     {
-                        Id = Guid.NewGuid(),
-                        Name = role,
-                        NormalizedName = role.ToUpper(),
-                        ConcurrencyStamp = DateTime.UtcNow.Ticks.ToString()
-                    });
+                        await roleManager.CreateAsync(new ApplicationRole()
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = role,
+                            NormalizedName = role.ToUpper(),
+                            ConcurrencyStamp = DateTime.UtcNow.Ticks.ToString()
+                        });
+                        logger.LogInformation("Roles seeded was succesfully!.");
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred while seeding the roles.");
             }
         }
     }

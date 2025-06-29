@@ -36,10 +36,6 @@
                         }
                     }
                 }
-                else
-                {
-                    logger.LogInformation("Admin user already exists.");
-                }
             }
             catch (Exception ex)
             {
